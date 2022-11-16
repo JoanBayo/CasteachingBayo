@@ -2,12 +2,15 @@
 
 namespace Tests\Feature\Videos;
 
+use App\Models\Video;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class VideoTest extends TestCase
 {
+    use RefreshDatabase;  //ZERO STATE
     /**
      * @test
      */
@@ -20,10 +23,9 @@ class VideoTest extends TestCase
             'description' => '#Here description',
             'url' => 'https://www.youtube.com/watch?v=6SxjClAdXZ8&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=3',
             'published_at' => Carbon::parse('December 13, 2020 8:00pm'),
-            'completed' => false,
             'previous' => null,
             'next' => null,
-            'series_d' => 1
+            'series_id' => 1
         ]);
         //FASE 2 -> Execució
         //Laravel Https tests
@@ -31,7 +33,9 @@ class VideoTest extends TestCase
 
         //FASE 3 -> Assertions
         $response->assertStatus(200);
-        $response->assertee('December 13, 2020 8:00pm');
+        $response->assertSee('Ubuntu 101');
+        $response->assertSee('Here Description');
+        $response->assertSee('December 13');
 
 
     }

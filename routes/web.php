@@ -16,3 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/videos/1', function () {
+    return view('videos.show',[
+        'title' => 'Ubuntu 101',
+        'description' => 'Here Description',
+        'published_at' => '13 Desembre',
+    ]);
+});
