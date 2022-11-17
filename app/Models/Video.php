@@ -11,5 +11,9 @@ class Video extends Model
 
     protected $guarded = [];
     //protected $fillable = ['title','description'];
+    protected  $dates = ['published_at'];
 
+//    protected $casts = [
+//        'publised_at' => 'datetime:Y-m-d',
+//    ];
 }

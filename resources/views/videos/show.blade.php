@@ -1,5 +1,6 @@
-<p>{{ $title }}</p>
+<p>{{ $video->title }}</p>
 <ul>
-    <li>Description: {{ $deseription }}</li>
-    <li>Data: {{ $published_at }}</li>
+    <li>Description: {{ $video->description }}</li>
+    <li>Data: {{ $video->published_at->format('F d') }}</li>
 </ul>
+

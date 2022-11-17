@@ -20,7 +20,7 @@ class VideoTest extends TestCase
         //WISHFUL PROGRAMMING -> API
         $video = Video::create([
             'title' => 'Ubuntu 101',
-            'description' => '#Here description',
+            'description' => 'Here description',
             'url' => 'https://www.youtube.com/watch?v=6SxjClAdXZ8&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=3',
             'published_at' => Carbon::parse('December 13, 2020 8:00pm'),
             'previous' => null,
@@ -34,7 +34,7 @@ class VideoTest extends TestCase
         //FASE 3 -> Assertions
         $response->assertStatus(200);
         $response->assertSee('Ubuntu 101');
-        $response->assertSee('Here Description');
+        $response->assertSee('Here description');
         $response->assertSee('December 13');
 
 
