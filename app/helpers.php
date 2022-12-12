@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Team;
 use App\Models\User;
 use App\Models\Video;
 use Carbon\Carbon;
@@ -9,7 +10,7 @@ if (! function_exists('create_default_user')) {
     function create_default_user()
     {
 
-        User::create([
+        $user = User::create([
             'name' => config('casteaching.default_user.name','Joan Bayo Benito'),
             'email' => config('casteaching.default_user.email','jbayo@iesebre.com'),
             'password' => Hash::make(config('casteaching.default_user.password','12345678'))
@@ -19,7 +20,6 @@ if (! function_exists('create_default_user')) {
                 'name' => $user->name . "'s Team",
                 'user_id' => $user->id,
                 'personal_team' => true
-
             ]);
         } catch (\Exception $exception) {
 

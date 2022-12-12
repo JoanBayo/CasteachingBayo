@@ -9,8 +9,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 /**
- * @test
- * covers \App\Http\Controllers\VideosController::class,show
+ * @covers \App\Http\Controllers\VideosController
  */
 class VideoTest extends TestCase
 {

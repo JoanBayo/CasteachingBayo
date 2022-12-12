@@ -16,20 +16,21 @@ class HelpersTest extends TestCase
     public function create_default_user()
     {
         create_default_user();
-        $this->assertDatabaseCount('user',1);
+        $this->assertDatabaseCount('users',1);
 
-        $this->assertDatabaseHas('user',[
+        $this->assertDatabaseHas('users',[
             'email' => config('casteaching.default_user.email'),
         ]);
 
-        $this->assertDatabaseHas('user',[
+        $this->assertDatabaseHas('users',[
             'name' => config('casteaching.default_user.name'),
         ]);
 
         $user = User::find(1);
+
         $this->assertNotNull($user);
         $this->assertEquals(config('casteaching.default_user.email'), $user->email);
-        $this->assertEquals(config('casteaching.default_user.name   '), $user->name);
+        $this->assertEquals(config('casteaching.default_user.name'), $user->name);
 
         $this->assertTrue(Hash::check(config('casteaching.default_user.password'), $user->password));
     }
