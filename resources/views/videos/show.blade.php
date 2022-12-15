@@ -21,7 +21,7 @@
                          Dia de partit
                      </dt>
                      <dd class="mt-1 text-1xl font-semibold text-grey-900">
-                         {{ $video->published_at }}
+                         {{ $video->formatted_published_at }}
                      </dd>
                  </div>
              </dl>

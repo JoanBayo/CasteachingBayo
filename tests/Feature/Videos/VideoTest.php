@@ -24,7 +24,7 @@ class VideoTest extends TestCase
             'title' => 'Ubuntu 101',
             'description' => 'Here description',
             'url' => 'https://www.youtube.com/watch?v=6SxjClAdXZ8&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=3',
-            'published_at' => Carbon::parse('December 13, 2020 8:00pm'),
+            'published_at' => Carbon::parse('November 22, 2022 11:00am'),
             'previous' => null,
             'next' => null,
             'series_id' => 1
@@ -35,7 +35,7 @@ class VideoTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('Ubuntu 101');
         $response->assertSee('Here description');
-        $response->assertSee('December 13');
+        $response->assertSee('22 de novembre de 2022');
 
 
     }
