@@ -19,6 +19,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         create_default_user();
+
+        create_suepradmin_user();
+
         create_default_videos();
     }
 }

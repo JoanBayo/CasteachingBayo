@@ -21,18 +21,12 @@ class AuthServiceProvider extends ServiceProvider
 
     /**
      * Register any authentication / authorization services.
-     *
      * @return void
      */
     public function boot()
     {
         $this->registerPolicies();
 
-        Gate::define('videos_manage_index', function (User $user) {
-            if ($user->isSuperAdmin()) return true;
-            return false;
-        });
-
-        //
+        define_gates();
     }
 }

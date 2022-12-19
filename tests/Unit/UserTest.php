@@ -19,8 +19,12 @@ class UserTest extends TestCase
             'name' => 'SuperAdmin',
             'email' => 'superadmin@casteaching.com',
             'password' => Hash::make('12345678'),
-
         ]);
-       $this->assertEquals($user->isSuperAdmin(),true);
+
+        $this->assertEquals($user->isSuperAdmin(),false);
+
+        $user->superadmin = true;
+        $user->save();
+        $this->assertEquals($user->isSuperAdmin(),true);
     }
 }
