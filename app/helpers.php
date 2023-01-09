@@ -6,6 +6,7 @@ use App\Models\Video;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 
 if (! function_exists('create_default_user')) {
     function create_default_user()
@@ -20,16 +21,7 @@ if (! function_exists('create_default_user')) {
         $user->superadmin = true;
         $user->save();
 
-        try {
-            Team::create([
-                'name' => $user->name . "'s Team",
-                'user_id' => $user->id,
-                'personal_team' => true
-            ]);
-        } catch (\Exception $exception) {
-
-        }
-
+        add_personal_team($user);
     }
 }
 
@@ -58,21 +50,27 @@ if (! function_exists('create_regular_user')) {
 
         add_personal_team($user);
 
-        try {
-            Team::create([
-                'name' => $user->name . "'s Team",
-                'user_id' => $user->id,
-                'personal_team' => true
-            ]);
-        } catch (\Exception $exception) {
-
-        }
-
-
         return $user;
 
     }
 }
+if (! function_exists('create_video_manager_user')) {
+    function create_video_manager_user(){
+        $user = User::create([
+            'name' => 'Videos Manager',
+            'email' => 'videosmanager@casteaching.com',
+            'password' => Hash::make('12345678')
+        ]);
+
+        Permission::create(['name' => 'videos_manage_index']);
+        $user->givePermissionTo('videos_manage_index');
+
+        add_personal_team($user);
+
+        return $user;
+    }
+}
+
 
 if (! function_exists('create_suepradmin_user')) {
     function create_suepradmin_user(){
@@ -87,25 +85,19 @@ if (! function_exists('create_suepradmin_user')) {
 
         add_personal_team($user);
 
-        try {
-            Team::create([
-                'name' => $user->name . "'s Team",
-                'user_id' => $user->id,
-                'personal_team' => true
-            ]);
-        } catch (\Exception $exception) {
-
-        }
-
-
         return $user;
     }
 }
 if (!function_exists('add_personal_team')) {
+
+    /**
+     * @param $user
+     * @return void
+     */
     function add_personal_team($user): void
     {
         try {
-            $team = Team::forceCreate([
+            Team::forceCreate([
                 'name' => $user->name . "'s Team",
                 'user_id' => $user->id,
                 'personal_team' => true
@@ -115,6 +107,7 @@ if (!function_exists('add_personal_team')) {
         }
     }
 }
+
 
 if (! function_exists('define_gates')) {
     function define_gates()
@@ -134,3 +127,11 @@ if (! function_exists('define_gates')) {
 //        });
     }
 }
+
+if (! function_exists('create_permissions')) {
+    function create_permissions(){
+        Permission::firstOrCreate(['name' => 'videos_manage_index']);
+    }
+}
+
+

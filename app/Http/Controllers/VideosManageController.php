@@ -16,7 +16,7 @@ class VideosManageController extends Controller
     }
 
     /**
-     * C -> Crate -> Mostrara el fomrulari de creació
+     * C -> Crate -> Mostrara el fomrulari de creacióE
      */
     public function create()
     {
