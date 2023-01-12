@@ -24,10 +24,10 @@ class VideosManageController extends Controller
     /**
      * C -> Crate -> Mostrara el fomrulari de creacióE
      */
-    public function create()
-    {
-        //
-    }
+//    public function create()
+//    {
+//        //
+//    }
 
     /**
      * C -> Crate -> Guardara a la base de dades el nou video

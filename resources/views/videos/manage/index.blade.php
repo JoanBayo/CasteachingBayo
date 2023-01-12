@@ -1,5 +1,20 @@
 <x-casteaching-layout>
     <div class="px-4 sm:px-6 lg:px-8 mt-10">
+
+        @can('videos_manage_create')
+        <form data-qa="form_video_create" action="" method="POST">
+            <label for="title">Title</label>
+            <input id="title" name="title" type="text">
+            <label for="description">Description</label>
+            <textarea name="description" id="description" cols="30" rows="10"></textarea>
+            <label for="url">Title</label>
+            <input id="url" name="url" type="text">
+            <button>
+                Crear
+            </button>
+        </form>
+        @endcan
+
         <div class="mt-8 flex flex-col">
             <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
