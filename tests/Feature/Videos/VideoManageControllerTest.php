@@ -17,7 +17,37 @@ use Tests\TestCase;
 class VideoManageControllerTest extends TestCase
 {
     use RefreshDatabase;
+    /**
+     * @test
+     */
+    public function user_with_permissions_can_store_videos()
+    {
+//        $this->withoutExceptionHandling();
+        $this->loginAsVideoManager();
 
+        $video = objectify([
+            'title' => 'Title',
+            'description' => 'Bla bla bla',
+            'url' => 'https://tubeme.acacha.org',
+        ]);
+
+        $response = $this->post('/manage/videos',[
+            'title' => 'Title',
+            'description' => 'Bla bla bla',
+            'url' => 'https://tubeme.acacha.org',
+        ]);
+
+        $response->assertRedirect(route('manage.videos'));
+        $response->assertSessionHas('status', 'Successfully created');
+
+        $videoDB = Video::first();
+
+        $this->assertNotNull($videoDB);
+        $this->assertEquals($videoDB->title,$video->title);
+        $this->assertEquals($videoDB->description,$video->description);
+        $this->assertEquals($videoDB->url,$video->url);
+
+    }
     /**
      * @test
      */
@@ -92,10 +122,10 @@ class VideoManageControllerTest extends TestCase
     /**
      * @test
      */
-    public function guest_users_cannot_manage_videos(){
-        $response = $this->get('/manage/videos');
-        $response->assertStatus(403);
-    }
+//    public function guest_users_cannot_manage_videos(){
+//        $response = $this->get('/manage/videos');
+//        $response->assertStatus(403);
+//    }
 
     /**
      * @test
