@@ -13,15 +13,20 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                    {{__('Dashboard')}}
+                        {{ __('Dashboard') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="/videos/1">
-                            {{ __('Videos 1') }}
+                        {{ __('Videos 1') }}
                     </x-jet-nav-link>
                     @can('videos_manage_index')
-                    <x-jet-nav-link href="/manage/videos " :active="request()->routeIs('manage.videos')">
-                        {{ __('Manage Videos') }}
-                    </x-jet-nav-link>
+                        <x-jet-nav-link href="/manage/videos" :active="request()->routeIs('manage.videos')">
+                            {{ __('Manage Videos') }}
+                        </x-jet-nav-link>
+                    @endcan
+                    @can('users_manage_index')
+                        <x-jet-nav-link href="/manage/users" :active="request()->routeIs('manage.users')">
+                            {{ __('Manage Users') }}
+                        </x-jet-nav-link>
                     @endcan
                 </div>
             </div>
@@ -82,6 +87,7 @@
                             </x-jet-dropdown>
                         </div>
                     @endif
+
                     <!-- Settings Dropdown -->
                     <div class="ml-3 relative">
                         <x-jet-dropdown align="right" width="48">
@@ -179,14 +185,18 @@
                 {{ __('Videos 1') }}
             </x-jet-responsive-nav-link>
             @can('videos_manage_index')
-            <x-jet-responsive-nav-link href="/manage/videos/" :active="request()->routeIs('manage.videos')">
-                {{ __('Manage Videos') }}
-            </x-jet-responsive-nav-link>
+                <x-jet-responsive-nav-link href="/manage/videos" :active="request()->routeIs('manage.videos')">
+                    {{ __('Manage Videos') }}
+                </x-jet-responsive-nav-link>
+            @endcan
+            @can('users_manage_index')
+                <x-jet-responsive-nav-link href="/manage/users" :active="request()->routeIs('manage.videos')">
+                    {{ __('Manage Users') }}
+                </x-jet-responsive-nav-link>
             @endcan
         </div>
         @if(Auth::check())
-
-        <!-- Responsive Settings Options -->
+            <!-- Responsive Settings Options -->
             <div class="pt-4 pb-1 border-t border-gray-200">
                 <div class="flex items-center px-4">
                     @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
@@ -260,7 +270,21 @@
                     @endif
                 </div>
             </div>
+        @else
+            <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                @auth
+                    <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
+                @else
+                    <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
+
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}"
+                           class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+                    @endif
+                @endauth
+            </div>
+
         @endif
+
     </div>
 </nav>
-

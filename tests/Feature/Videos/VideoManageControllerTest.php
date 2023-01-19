@@ -122,10 +122,10 @@ class VideoManageControllerTest extends TestCase
     /**
      * @test
      */
-//    public function guest_users_cannot_manage_videos(){
-//        $response = $this->get('/manage/videos');
-//        $response->assertStatus(403);
-//    }
+    public function guest_users_cannot_manage_videos(){
+        $response = $this->get('/manage/videos');
+        $response->assertStatus(403);
+    }
 
     /**
      * @test
@@ -148,7 +148,7 @@ class VideoManageControllerTest extends TestCase
 
     private function loginAsSuperAdmin()
     {
-        Auth::login(create_suepradmin_user());
+        Auth::login(create_superadmin_user());
     }
 
     private function loginAsRegularUser()

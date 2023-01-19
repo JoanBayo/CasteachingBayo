@@ -74,8 +74,8 @@ if (! function_exists('create_video_manager_user')) {
 }
 
 
-if (! function_exists('create_suepradmin_user')) {
-    function create_suepradmin_user(){
+if (! function_exists('create_superadmin_user')) {
+    function create_superadmin_user(){
         $user = User::create([
             'name' => 'SuperAdmin',
             'email' => 'superadmin@casteaching.com',
@@ -90,6 +90,23 @@ if (! function_exists('create_suepradmin_user')) {
         return $user;
     }
 }
+
+
+if (!function_exists('create_user_manager_user')) {
+    function create_user_manager_user(){
+        $user = User::create([
+            'name' => 'UserManager',
+            'email' => 'usersmanager@casteaching.com',
+            'password' => Hash::make('12345678'),
+        ]);
+
+        Permission::create(['name' => 'users_manage_index']);
+        $user->givePermissionTo('users_manage_index');
+        add_personal_team($user);
+        return $user;
+    }
+}
+
 if (!function_exists('add_personal_team')) {
 
     /**
@@ -110,7 +127,6 @@ if (!function_exists('add_personal_team')) {
     }
 }
 
-
 if (! function_exists('define_gates')) {
     function define_gates()
     {
@@ -123,10 +139,10 @@ if (! function_exists('define_gates')) {
             return false;
         });
 
-//        Gate::define('videos_manage_create', function (User $user) {
-//            if ($user->isSuperAdmin()) return true;
-//            return false;
-//        });
+        Gate::define('videos_manage_create', function (User $user) {
+            if ($user->isSuperAdmin()) return true;
+            return false;
+        });
     }
 }
 

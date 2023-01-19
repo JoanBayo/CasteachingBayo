@@ -14,6 +14,7 @@ class VideosManageController extends Controller
     /**
      * R -> Retrive -> Llista
      */
+
     public function index()
     {
         return view('videos.manage.index',[
