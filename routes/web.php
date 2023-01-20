@@ -3,7 +3,6 @@
 use App\Http\Controllers\UsersManageController;
 use App\Http\Controllers\VideosController;
 use App\Http\Controllers\VideosManageController;
-use App\Models\Video;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,7 +30,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
 
     Route::get('/manage/videos', [ VideosManageController::class, 'index'])->middleware(['can:videos_manage_index'])
     ->name('manage.videos');
-    Route::post('/manage/videos',  [ VideosManageController::class, 'stoere']);
+
+    Route::post('/manage/videos',[ VideosManageController::class, 'store']);
+
+    Route::delete('/manage/videos/{id}',[ VideosManageController::class,'destroy']);
 
     Route::get('/manage/users', [ UsersManageController::class, 'index'])->middleware(['can:users_manage_index'])
     ->name('manage.users');
