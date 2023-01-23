@@ -29,7 +29,11 @@
                             </thead>
                             <tbody class="divide-y divide-gray-200 bg-white">
                             @foreach($users as $user)
-                                <tr>
+                                @if($loop->odd)
+                                    <tr class="bg-white">
+                                @else
+                                    <tr class="bg-gray-550">
+                                @endif
                                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                         {{ $user->id }}</td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $user->name }}</td>
