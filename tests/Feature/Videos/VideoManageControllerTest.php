@@ -23,7 +23,7 @@ class VideoManageControllerTest extends TestCase
      */
     public function user_with_permissions_can_destroy_videos()
     {
-        $this->withoutExceptionHandling();
+        //$this->withoutExceptionHandling();
         $this->loginAsVideoManager();
         $video = Video::create([
             'title' => 'Title',
@@ -41,6 +41,25 @@ class VideoManageControllerTest extends TestCase
         $this->assertNull($video->fresh());
 
     }
+    /**
+     * @test
+     */
+    public function user_with_permissions_cannot_destroy_videos()
+    {
+        $this->loginAsRegularUser();
+        $video = Video::create([
+            'title' => 'Title',
+            'description' => 'Bla bla bla',
+            'url' => 'https://tubeme.acacha.org',
+        ]);
+
+
+        $response = $this->delete('/manage/videos/' . $video->id);
+
+        $response->assertStatus(403);
+
+    }
+
     /**
      * @test
      */
