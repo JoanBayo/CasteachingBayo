@@ -107,7 +107,7 @@
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $video->url }}</td>
                                     <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                         <a href="/videos/{{$video->id}}" target="_blank" class="text-indigo-600 hover:text-indigo-900">Show</a>
-                                        <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                       <a href="/manage/videos/{{$video->id}}" target="_blank" class="text-indigo-600 hover:text-indigo-900">Edit</a>
                                         <form class="inline" action = "/manage/videos/{{$video->id}}" method = "POST">
                                             @csrf
                                             @method('DELETE')
