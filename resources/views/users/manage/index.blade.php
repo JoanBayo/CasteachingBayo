@@ -144,8 +144,14 @@
                                     <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                         {{--                                        <a href="/users/{{ $user->id }}" target="_blank" class="text-indigo-600 hover:text-indigo-900">Show<span class="sr-only"></span></a>--}}
                                         <a href="#" class="text-green-600 hover:text-indigo-900">Edit<span class="sr-only"></span></a>
-                                        <a href="#" class="text-red-600 hover:text-indigo-900">Delete<span class="sr-only"></span></a>
-                                    </td>                                    
+                                <form class="inline" action="/manage/users/{{$user->id}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <a href="/users/{{$user->id}}" class="text-indigo-600 hover:text-indigo-900"
+                                       onclick="event.preventDefault();
+                                        this.closest('form').submit();">Delete</a>
+                                </form>                            </td>                                    
                                 </tr>
                             @endforeach
                             </tbody>
@@ -156,15 +162,3 @@
         </div>
     </div>
 </x-casteaching-layout>
-
-
-
-
-                                <form class="inline" action="/manage/users/{{$user->id}}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-
-                                    <a href="/users/{{$user->id}}" class="text-indigo-600 hover:text-indigo-900"
-                                       onclick="event.preventDefault();
-                                        this.closest('form').submit();">Delete</a>
-                                </form>                            </td>
