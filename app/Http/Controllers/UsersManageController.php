@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Tests\Feature\Users\UsersManageControllerTest;
+use Illuminate\Support\Facades\Hash;
 
 class UsersManageController extends Controller
 {
@@ -19,10 +20,6 @@ class UsersManageController extends Controller
         ]);
     }
 
-    public function create()
-    {
-        //
-    }
 
     public function store(Request $request)
     {
