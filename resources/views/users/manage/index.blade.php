@@ -156,3 +156,15 @@
         </div>
     </div>
 </x-casteaching-layout>
+
+
+
+
+                                <form class="inline" action="/manage/users/{{$user->id}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <a href="/users/{{$user->id}}" class="text-indigo-600 hover:text-indigo-900"
+                                       onclick="event.preventDefault();
+                                        this.closest('form').submit();">Delete</a>
+                                </form>                            </td>
