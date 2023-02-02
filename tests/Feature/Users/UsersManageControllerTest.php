@@ -126,11 +126,11 @@ class UsersManageControllerTest extends TestCase
 
         $response->assertDontSee('<form data-qa="form_user_create"',false);
     }
-    
+
     /** @test */
     public function user_with_permissions_can_manage_users()
     {
-        $this->loginAsUsersManager();
+        $this->loginAsUserManager();
 
         $user1 = create_video_manager_user();
         $user2 = create_regular_user();
@@ -180,7 +180,7 @@ class UsersManageControllerTest extends TestCase
         $response->assertViewIs('users.manage.index');
     }
 
-    private function loginAsUsersManager()
+    private function loginAsUserManager()
     {
         Auth::login(create_user_manager_user());
     }

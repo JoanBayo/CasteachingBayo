@@ -17,7 +17,7 @@ use Tests\TestCase;
 class VideoManageControllerTest extends TestCase
 {
     use RefreshDatabase;
-    
+
         /** @test  */
     public function user_with_permissions_can_update_videos()
     {
@@ -223,7 +223,7 @@ class VideoManageControllerTest extends TestCase
      */
     public function guest_users_cannot_manage_videos(){
         $response = $this->get('/manage/videos');
-        $response->assertStatus(403);
+        $response->assertRedirect(route('login'));
     }
 
     /**
