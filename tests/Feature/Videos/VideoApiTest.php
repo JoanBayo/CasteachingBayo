@@ -29,7 +29,8 @@ class VideoApiTest extends TestCase
             'description' => 'Te ensenyo tot el que se sobre HTTP',
             'url' => 'https://tubeme.acacha.org/http',
         ]);
-        $response = $this->putJson('/api/videos/' . $video->id);
+
+        $response = $this->putJson('/api/videos/'.$video->id);
 
 
         $response
@@ -54,6 +55,7 @@ class VideoApiTest extends TestCase
             'description' => 'Te ensenyo tot el que se sobre HTTP',
             'url' => 'https://tubeme.acacha.org/http',
         ]);
+
         $response = $this->putJson('/api/videos/' . $video->id);
 
         $response
