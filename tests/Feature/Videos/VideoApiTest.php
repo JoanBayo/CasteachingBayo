@@ -94,20 +94,25 @@ class VideoApiTest extends TestCase
             'description' => 'Te ensenyo tot el que se sobre HTTP',
             'url' => 'https://tubeme.acacha.org/http',
         ]);
-        $response = $this->putJson('/api/videos/' . $video->id);
+
+        $response = $this->putJson('/api/videos/' . $video->id,[
+            'title' => 'Ubuntu 101 new',
+            'description' => 'Te ensenyo tot el que se sobre HTTP new',
+            'url' => 'https://tubeme.acacha.org/http/new',
+        ]);
 
         $response
             ->assertStatus(200)
             ->assertJson(fn (AssertableJson $json) =>
             $json->has('id')
-                ->where('title', $video['title'])
-                ->where('description', $video['description'])
-                ->where('url', $video['url'])
+                ->where('title', 'Ubuntu 101 new')
+                ->where('description', 'Te ensenyo tot el que se sobre HTTP new')
+                ->where('url', 'https://tubeme.acacha.org/http/new')
                 ->etc()
             );
 
 
-        $this->assertNull(Video::find($response['id']));
+        $this->assertNotNull(Video::find($response['id']));
     }
 
     /**
