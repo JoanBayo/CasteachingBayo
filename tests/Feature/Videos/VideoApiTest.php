@@ -95,7 +95,6 @@ class VideoApiTest extends TestCase
             'url' => 'https://tubeme.acacha.org/http',
         ]);
         $response = $this->putJson('/api/videos/' . $video->id);
-
         $response
             ->assertStatus(200)
             ->assertJson(fn (AssertableJson $json) =>
