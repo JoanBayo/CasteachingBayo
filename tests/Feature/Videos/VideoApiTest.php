@@ -94,9 +94,7 @@ class VideoApiTest extends TestCase
             'description' => 'Te ensenyo tot el que se sobre HTTP',
             'url' => 'https://tubeme.acacha.org/http',
         ]);
-<<<<<<< HEAD
         $response = $this->putJson('/api/videos/' . $video->id);
-=======
 
         $response = $this->putJson('/api/videos/' . $video->id,[
             'title' => 'Ubuntu 101 new',
@@ -104,7 +102,6 @@ class VideoApiTest extends TestCase
             'url' => 'https://tubeme.acacha.org/http/new',
         ]);
 
->>>>>>> 0c502f7827fac25e51cd8d2b952cde4215c9bb06
         $response
             ->assertStatus(200)
             ->assertJson(fn (AssertableJson $json) =>
