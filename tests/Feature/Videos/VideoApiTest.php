@@ -22,6 +22,7 @@ class VideoApiTest extends TestCase
      */
     public function regular_users_cannot_update_videos()
     {
+        $this->withoutExceptionHandling();
         $this->loginAsRegularUser();
         $video = Video::create([
             'title' => 'Ubuntu 101',
