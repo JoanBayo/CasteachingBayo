@@ -57,6 +57,7 @@
                                         </span>
                                                         <input type="url" name="url" id="url" class="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="www.example.com">
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>

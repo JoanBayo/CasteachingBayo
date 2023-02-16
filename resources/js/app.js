@@ -8,3 +8,4 @@ window.casteaching = casteaching;
 Alpine.plugin(focus);
 
 Alpine.start();
+
