@@ -21,6 +21,6 @@ class VideosManageVueControllerTest extends TestCase
         $response = $this->get('/vue/manage/videos');
 
         $response->assertStatus(200);
-        $response->assertViewIS('vidoes.manage.index');
+        $response->assertViewIS('videos.manage.vue.index');
     }
 }

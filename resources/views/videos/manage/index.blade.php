@@ -117,7 +117,6 @@
                                                 Delete</a>
                                         </form>
                                     </td>
-                                </>
                             @endforeach
                             </tbody>
                         </table>

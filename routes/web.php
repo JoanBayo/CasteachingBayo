@@ -50,7 +50,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
 
 
     Route::get('/vue/manage/videos', [ VideosManageVueController::class, 'index'])->middleware(['can:videos_manage_index'])
-        ->name('manage.videos');
+        ->name('manage.vue.videos');
 
     Route::post('/vue/manage/videos',[ VideosManageVueController::class, 'store'])->middleware(['can:videos_manage_store']);
 
