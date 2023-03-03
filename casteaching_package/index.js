@@ -1,11 +1,13 @@
 import axios from 'axios'
 
+// TOKEN 4dtQl58nAQ6ciWW04BHdQCav2WbMnspuJnHjGYrO
 const apiClinet = axios.create({
     baseURL: 'http://casteachingbayo.test/api',
-    withCredentials : false,
+    withCredentials : true,
     headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer 4dtQl58nAQ6ciWW04BHdQCav2WbMnspuJnHjGYrO'
     }
 })
 
@@ -18,7 +20,7 @@ export default {
     },
     video: {
         show: async function(id) {
-            const response = await apiClinet.get(' /videos' + id)
+            const response = await apiClinet.get(' /videos/' + id)
             return response.data
         },
         create: async function(data) {
@@ -26,11 +28,11 @@ export default {
             return response.data
         },
         update: async function(id, data) {
-            const response = await apiClinet.put(' /videos'+ id, data)
+            const response = await apiClinet.put(' /videos/'+ id,data)
             return response.data
         },
         destroy: async function(id) {
-            const response = await apiClinet.delete(' /videos' + id)
+            const response = await apiClinet.delete(' /videos/' + id)
             return response.data
         },
     }

@@ -18,8 +18,8 @@
         "vite": "^3.0.0"
     },
     "dependencies": {
+        "@acacha/casteaching": "^1.0.12",
         "@vitejs/plugin-vue2": "^2.2.0",
-        "casteaching": "file:/home/alumne/Escriptori/DAM/CasteachingBayo/casteaching_package",
         "npm-watch": "^0.11.0",
         "vue": "^2.7.14"
     }
