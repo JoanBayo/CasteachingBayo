@@ -40,7 +40,7 @@
                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                 <video-show-link :video="video"></video-show-link>
                                 <video-edit-link :video="video"></video-edit-link>
-                                <video-destroy-link :video="video"></video-destroy-link>
+                                <video-destroy-link :video="video" @removed="refresh()"></video-destroy-link>
                             </td>
                         </tr>
                         </tbody>
@@ -56,7 +56,7 @@
 import VideoShowLink from "./VideoShowLink.vue";
 import VideoEditLink from "./VideoEditLink.vue";
 import VideoDestroyLink from "./VideoDestroyLink.vue";
-
+import bus from '../bus.js'
 export default {
     name: "VideosList",
     components: {
@@ -71,6 +71,13 @@ export default {
     },
     async created() {
         this.getVideos()
+        bus.$on('created', () => {
+            this.refresh()
+        })
+        this.getVideos()
+        bus.$on('updated', () => {
+            this.refresh()
+        })
     },
     methods: {
         async getVideos(){

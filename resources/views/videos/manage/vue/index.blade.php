@@ -6,8 +6,9 @@
             </h2>
         </x-slot>
 
-        <x-status></x-status>
         <div id="vueapp">
+            <status></status>
+
         @can('videos_manage_create')
              <video-form></video-form>
         @endcan
@@ -16,3 +17,4 @@
         </div>
     </div>
 </x-casteaching-layout>
+

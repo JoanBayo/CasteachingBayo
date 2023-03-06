@@ -5,8 +5,7 @@
                 {{ __('Videos') }}
             </h2>
         </x-slot>
-
-        <x-status></x-status>
+        <status></status>
          @can('videos_manage_create')
             <div class="mt-8 flex flex-col">
             <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
