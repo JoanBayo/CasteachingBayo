@@ -170,6 +170,18 @@ if (! function_exists('create_permissions')) {
         Permission::firstOrCreate(['name' => 'videos_manage_update']);
     }
 }
+
+if (! function_exists('create_sample_video')) {
+    function create_sample_video()
+    {
+        return Video::create([
+            'title' => 'Video1',
+            'description' => 'Bla Bla Bla',
+            'url' => 'https://youtu.be/6O4mPpj6rI8',
+        ]);
+    }
+}
+
 if (! function_exists('create_sample_videos')) {
     function create_sample_videos(){
         $video1 = Video::create([
