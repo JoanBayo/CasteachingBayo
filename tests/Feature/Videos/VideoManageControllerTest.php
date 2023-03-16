@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Videos;
 
+use App\Events\VideoCreated;
 use App\Models\User;
 use App\Models\Video;
 use Illuminate\Database\Eloquent\Collection;
@@ -9,14 +10,17 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
+use Tests\Feature\Traits\CanLogin;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Event;
+
 
 /**
  * @covers \App\Http\Controllers\VideosManageController
  */
 class VideoManageControllerTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, CanLogin;
 
         /** @test  */
     public function user_with_permissions_can_update_videos()
@@ -124,17 +128,16 @@ class VideoManageControllerTest extends TestCase
 //        $this->withoutExceptionHandling();
         $this->loginAsVideoManager();
 
-        $video = objectify([
+        $video = objectify($videoArray = [
             'title' => 'Title',
             'description' => 'Bla bla bla',
             'url' => 'https://tubeme.acacha.org',
         ]);
 
-        $response = $this->post('/manage/videos',[
-            'title' => 'Title',
-            'description' => 'Bla bla bla',
-            'url' => 'https://tubeme.acacha.org',
-        ]);
+        Event::fake();
+        $response = $this->post('/manage/videos',$videoArray);
+
+        Event::assertDispatched(VideoCreated::class);
 
         $response->assertRedirect(route('manage.videos'));
         $response->assertSessionHas('status', 'Successfully created');
@@ -238,22 +241,4 @@ class VideoManageControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertViewIs('videos.manage.index');
     }
-
-
-    private function loginAsVideoManager()
-    {
-        Auth::login(create_video_manager_user());
-    }
-
-    private function loginAsSuperAdmin()
-    {
-        Auth::login(create_superadmin_user());
-    }
-
-    private function loginAsRegularUser()
-    {
-        Auth::login(create_regular_user());
-
-    }
-
 }

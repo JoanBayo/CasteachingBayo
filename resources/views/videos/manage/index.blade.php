@@ -5,8 +5,7 @@
                 {{ __('Videos') }}
             </h2>
         </x-slot>
-
-        <x-status></x-status>
+        <status></status>
          @can('videos_manage_create')
             <div class="mt-8 flex flex-col">
             <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -57,7 +56,6 @@
                                         </span>
                                                         <input type="url" name="url" id="url" class="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="www.example.com">
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -118,7 +116,6 @@
                                                 Delete</a>
                                         </form>
                                     </td>
-                                </>
                             @endforeach
                             </tbody>
                         </table>
