@@ -33,6 +33,7 @@ class VideosManageController extends Controller
             'description' => $request->description,
             'url' => $request->url,
         ]);
+
         session()->flash('status','Successfully created');
 
         VideoCreated::dispatch($video);

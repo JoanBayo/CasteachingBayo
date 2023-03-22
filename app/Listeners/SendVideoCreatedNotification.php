@@ -21,5 +21,7 @@ class SendVideoCreatedNotification implements ShouldQueue
     public function handle(VideoCreated $event)
     {
         Notification::route('mail', config('casteaching.admins'))->notify(new \App\Notifications\VideoCreated($event->video));
+
     }
 }
+

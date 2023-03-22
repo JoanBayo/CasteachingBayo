@@ -88,9 +88,9 @@ export default {
 
         },
 
-        store(){
+        async store(){
             try {
-                window.api.video.create({
+                await window.api.video.create({
                     title: this.video.title,
                     description: this.video.description,
                     url:  this.video.url
@@ -102,9 +102,9 @@ export default {
             }
         },
 
-        update(){
+        async update(){
             try {
-                window.api.video.update(this.video.id, {
+                await window.api.video.update(this.video.id, {
                     title: this.video.title,
                     description: this.video.description,
                     url:  this.video.url

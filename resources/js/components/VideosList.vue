@@ -71,12 +71,12 @@ export default {
     },
     async created() {
         this.getVideos()
-        bus.$on('created', () => {
-            this.refresh()
+        bus.$on('created', async () => {
+            await this.refresh()
         })
         this.getVideos()
-        bus.$on('updated', () => {
-            this.refresh()
+        bus.$on('updated', async () => {
+            await this.refresh()
         })
     },
     methods: {
@@ -85,7 +85,7 @@ export default {
 
         },
         async refresh(){
-            this.getVideos()
+            await this.getVideos()
         }
     }
 

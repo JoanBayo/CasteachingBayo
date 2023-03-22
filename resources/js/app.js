@@ -8,7 +8,7 @@ import casteaching from '@acacha/casteaching'
 import Status from "./components/Status.vue";
 
 window.api = casteaching({baseUrl: 'http://casteachingbayo.test/api/'})
-window.api.setToken('4dtQl58nAQ6ciWW04BHdQCav2WbMnspuJnHjGYrO')
+window.api.setToken('SJOPz2ZoMnIDkUr5q4QkoEsx5cSnRRAoH2kapa5M')
 
 
 window.Alpine = Alpine;
