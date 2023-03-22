@@ -30,3 +30,5 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::delete('/videos/{id}', [VideosApiController::class, 'destroy'])->middleware(['can:videos_manage_destroy']);
 
 });
+
+Route::post('/sanctum/token',\App\Http\Controllers\SanctumTokenController::class);
