@@ -7,7 +7,7 @@ import VideoForm from "./components/VideoForm.vue";
 import casteaching from '@acacha/casteaching'
 import Status from "./components/Status.vue";
 
-window.api = casteaching({baseUrl: 'http://casteachingbayo.test/api/'})
+window.api = casteaching({baseUrl: 'https://casteachingbayo.test/api/'})
 window.api.setToken('4dtQl58nAQ6ciWW04BHdQCav2WbMnspuJnHjGYrO')
 
 
