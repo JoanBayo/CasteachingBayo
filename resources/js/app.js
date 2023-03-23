@@ -8,7 +8,7 @@ import casteaching from '@acacha/casteaching'
 import Status from "./components/Status.vue";
 
 
-window.api = casteaching({baseUrl: 'https://casteachingbayo.test/api/'})
+window.api = casteaching({baseUrl: import.meta.env.VITE_API_URL})
 window.api.setToken('4dtQl58nAQ6ciWW04BHdQCav2WbMnspuJnHjGYrO')
 
 
