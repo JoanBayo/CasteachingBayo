@@ -31,7 +31,7 @@ if (! function_exists('create_default_videos')) {
         Video::create([
             'title' => 'Ubuntu 101',
             'description' => 'Here description',
-            'url' => 'https://www.youtube.com/watch?v=6SxjClAdXZ8&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=3',
+            'url' => 'https://youtu.be/lp1Mxu44_wI',
             'published_at' => Carbon::parse('December 13, 2020 8:00pm'),
             'previous' => null,
             'next' => null,
