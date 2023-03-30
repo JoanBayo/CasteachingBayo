@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/videos', [VideosApiController::class, 'index']);
-//Route::get('/videos/{id}', [VideosApiController::class, 'show']);
+Route::get('/videos/{id}', [VideosApiController::class, 'show']);
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/videos', [VideosApiController::class, 'store'])->middleware(['can:videos_manage_store']);
