@@ -28,6 +28,9 @@ class CasteachingSeries extends Component
      */
     public function render()
     {
-        return view('components.casteaching-series');
+        $series = Serie::latest()->get();
+        return view('components.casteaching-series',[
+            'series' => $series
+        ]);
     }
 }
