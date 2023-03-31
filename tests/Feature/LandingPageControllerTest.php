@@ -19,6 +19,9 @@ class LandingPageControllerTest extends TestCase
     {
         $response = $this->get('/');
         $response->assertStatus(200);
+        $response->assertViewIs('welcome');
+
+        $response->assertSee('id="casteaching_series"', false);
     }
 
 }

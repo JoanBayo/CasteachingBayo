@@ -10,8 +10,9 @@ class LandingPageController extends Controller
         return LandingPageControllerTest::class;
     }
 
-    /**
-     * @test
-     */
+    public function show()
+    {
+        return view('welcome');
+    }
 
 }
