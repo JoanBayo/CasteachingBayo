@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-// use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class LandingPage extends TestCase
+class LandingPageTest extends TestCase
 {
     use RefreshDatabase;
     /**
