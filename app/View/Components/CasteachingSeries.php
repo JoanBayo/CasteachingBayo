@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\Serie;
 use Illuminate\View\Component;
 use Tests\Feature\CasteachingSeriesTest;
 
