@@ -11,7 +11,7 @@ use Tests\TestCase;
      */
 class LandingPageControllerTest extends TestCase
 {
-
+    use RefreshDatabase;
     /**
      * @test
      */
