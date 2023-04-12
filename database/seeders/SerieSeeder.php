@@ -15,6 +15,6 @@ class SerieSeeder extends Seeder
      */
     public function run()
     {
-        create_sample_series();
+        $series = create_sample_series();
     }
 }
