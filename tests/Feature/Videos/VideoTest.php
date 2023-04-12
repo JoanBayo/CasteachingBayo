@@ -1,52 +1,88 @@
 <?php
 
-namespace Tests\Feature\Videos;
+namespace Tests\Unit;
 
+use App\Models\Serie;
 use App\Models\Video;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 /**
- * @covers \App\Http\Controllers\VideosController
+ * @covers Video::class
  */
 class VideoTest extends TestCase
 {
-    use RefreshDatabase;  //ZERO STATE
-    /**
-     * @test
-     */
-    public function users_can_view_videos()
-    {
+    use RefreshDatabase;
 
+    /** @test */
+    public function can_get_formatted_published_at_date()
+    {
+        // 1 Preparació
+        // TODO CODE SMELL
         $video = Video::create([
             'title' => 'Ubuntu 101',
-            'description' => 'Here description',
-            'url' => 'https://www.youtube.com/watch?v=6SxjClAdXZ8&list=PLyasg1A0hpk07HA0VCApd4AGd3Xm45LQv&index=3',
-            'published_at' => Carbon::parse('November 22, 2022 11:00am'),
+            'description' => '# Here description',
+            'url' => 'https://youtu.be/w8j07_DBl_I',
+            'published_at' => Carbon::parse('December 13, 2020 8:00pm'),
             'previous' => null,
             'next' => null,
-            'series_id' => 1
+            'serie_id' => 1
         ]);
 
-        $response = $this->get('/videos/' . $video->id);
+        // 2 Execució WISHFUL PROGRAMMING
+        $dateToTest = $video->formatted_published_at;
 
-        $response->assertStatus(200);
-        $response->assertSee('Ubuntu 101');
-        $response->assertSee('Here description');
-        $response->assertSee('22 de novembre de 2022');
-        //$response->assertSee('https://youtu.be/w8j07_DBl_I');
-
-
+        // 3 comprovació / assert
+        $this->assertEquals($dateToTest, '13 de desembre de 2020');
     }
+
+    /** @test */
+    public function can_get_formatted_published_at_date_when_not_published()
+    {
+        // 1 Preparació
+        // TODO CODE SMELL
+        $video = Video::create([
+            'title' => 'Ubuntu 101',
+            'description' => '# Here description',
+            'url' => 'https://youtu.be/w8j07_DBl_I',
+            'published_at' => null,
+            'previous' => null,
+            'next' => null,
+            'serie_id' => 1
+        ]);
+
+        // 2 Execució WISHFUL PROGRAMMING
+        $dateToTest = $video->formatted_published_at;
+
+        // 3 comprovació / assert
+        $this->assertEquals($dateToTest, '');
+    }
+
     /**
      * @test
      */
-    public function users_can__not_view_not_existing_videos()
+    public function video_have_serie()
     {
-        $response = $this->get('/videos/999');
-        $response->assertStatus(404);
+        $video = Video::create([
+            'title' => 'TDD 101',
+            'description' => 'Bla bla bla',
+            'url' => 'https://youtu.be/w8j07_DBl_I',
+        ]);
+
+        $this->assertNull($video->serie);
+
+        $serie = Serie::create([
+            'title' => 'Apren TDD',
+            'description' => 'Bla bla bla',
+            'image' => 'tdd.png',
+            'teacher_name' => 'Sergi Tur Badenas',
+            'teacher_photo_url' => 'https://www.gravatar.com/avatar/' . md5('sergiturbadenas@gmail.com'),
+        ]);
+
+        $video->setSerie($serie);
+
+        $this->assertNotNull($video->fresh()->serie);
 
     }
 }

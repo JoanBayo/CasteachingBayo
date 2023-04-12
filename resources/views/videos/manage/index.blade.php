@@ -45,6 +45,8 @@
                                                 <p class="mt-2 text-sm text-gray-500">
                                                     Enter a good description so people know what the video is about.</p>
                                             </div>
+
+
                                             <div class="grid grid-cols-3 gap-6">
                                                 <div class="col-span-3 sm:col-span-2">
                                                     <label for="url" class="block text-sm font-medium text-gray-700">
@@ -58,6 +60,23 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+
+                                            <div class="grid grid-cols-3 gap-6">
+                                                <div class="col-span-3">
+                                                    <label for="url" class="block text-sm font-medium text-gray-700">
+                                                        Serie
+                                                    </label>
+                                                    <select id="serie" name="serie_id" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                                        @foreach (App\Models\Serie::all() as $serie)
+                                                            <option value="{{ $serie->id }}"> {{ $serie->title }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+
                                         </div>
                                         <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
                                             <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
@@ -87,6 +106,7 @@
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">TITLE</th>
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">DESCRIPTION</th>
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">URL</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Serie</th>
                                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                                     <span class="sr-only">ACTIONS</span>
                                 </th>
@@ -103,6 +123,7 @@
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $video->title }}</td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $video->description }}</td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $video->url }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ optional($video->serie)->title }}</td>
                                     <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                         <a href="/videos/{{$video->id}}" target="_blank" class="text-indigo-600 hover:text-indigo-900">Show</a>
                                        <a href="/manage/videos/{{$video->id}}" target="_blank" class="text-indigo-600 hover:text-indigo-900">Edit</a>
