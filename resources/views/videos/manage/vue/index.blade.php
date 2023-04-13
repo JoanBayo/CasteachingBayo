@@ -9,11 +9,13 @@
         <div id="vueapp">
             <status></status>
 
-        @can('videos_manage_create')
-             <video-form></video-form>
-        @endcan
+            <div id="app">
+                @can('videos_manage_create')
+                    <video-form></video-form>
+                @endcan
 
-            <videos-list></videos-list>
+                    <videos-list></videos-list>
+            </div>
         </div>
     </div>
 </x-casteaching-layout>

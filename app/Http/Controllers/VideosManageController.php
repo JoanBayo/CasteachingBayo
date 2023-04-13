@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\VideoCreated;
 use App\Models\Video;
+use App\Models\Serie;
 use Illuminate\Http\Request;
 
 class VideosManageController extends Controller
@@ -28,11 +29,18 @@ class VideosManageController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'url' => 'required',
+        ]);
+
         $video = Video::create([
             'title' => $request->title,
             'description' => $request->description,
             'url' => $request->url,
-            'serie_id' => $request->serie_id
+            'serie_id' => $request->serie_id,
+            'user_id' => $request->user_i
         ]);
         session()->flash('status','Successfully created');
 

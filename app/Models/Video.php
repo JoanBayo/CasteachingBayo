@@ -33,6 +33,8 @@ class Video extends Model
     {
         return optional($this->published_at)->timestamp;
     }
+
+
     public function serie()
     {
         return $this->belongsTo(Serie::class);
@@ -44,4 +46,17 @@ class Video extends Model
         $this->save();
         return $this;
     }
+
+    public function setOwner(User $user)
+    {
+        $this->user_id = $user->id;
+        $this->save();
+        return $this;
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
