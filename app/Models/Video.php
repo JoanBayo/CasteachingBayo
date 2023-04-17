@@ -13,7 +13,7 @@ class Video extends Model
 
     protected $guarded = [];
 
-    //protected $fillable = ['title','description'];
+    protected $fillable = ['title','description'];
     protected  $dates = ['published_at'];
 
     //formatted_published_at accesor
@@ -47,12 +47,12 @@ class Video extends Model
         return $this;
     }
 
-    public function setOwner(User $user)
-    {
-        $this->user_id = $user->id;
-        $this->save();
-        return $this;
-    }
+//    public function setOwner(User $user)
+//    {
+//        $this->user_id = $user->id;
+//        $this->save();
+//        return $this;
+//    }
 
     public function user()
     {

@@ -40,7 +40,7 @@ class VideosManageController extends Controller
             'description' => $request->description,
             'url' => $request->url,
             'serie_id' => $request->serie_id,
-            'user_id' => $request->user_i
+            'user_id' => $request->user_id
         ]);
         session()->flash('status','Successfully created');
 

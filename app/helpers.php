@@ -55,6 +55,22 @@ if (! function_exists('create_regular_user')) {
 
     }
 }
+if (! function_exists('create_acacha_user')) {
+    function create_acacha_user(){
+        $user = User::create([
+            'name' => 'Acacha_Dev',
+            'email' => 'sergiturbadenas@gmail.com',
+            'password' => Hash::make('12345678'),
+        ]);
+        $user->superadmin = true;
+
+        add_personal_team($user);
+
+        return $user;
+
+    }
+}
+
 if (! function_exists('create_video_manager_user')) {
     function create_video_manager_user(){
         $user = User::create([

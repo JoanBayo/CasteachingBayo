@@ -18,17 +18,13 @@
 
                  <div class="px-4 py-2 bg-red-100 bg-white shadow rounded-lg overflow-hidden">
                      <dt class="text-sm font-medium text-grey-500 truncate">
-                         Dia de partit
+                         {!!Str::markdown($video->description) !!}
                      </dt>
                      <dd class="mt-1 text-1xl font-semibold text-grey-900">
                          {{ $video->formatted_published_at }}
                      </dd>
                  </div>
              </dl>
-        </div>
-
-        <div class="prose-sm md:prose lg-prose-xl 2xl:prose-2xl mx-auto px-4 py-4 md:px-6 xl:px-15 xl:py-5 2xl:px-20 2xl:py-10">
-            {!!Str::markdown($video->description) !!}
         </div>
     </div>
 </x-casteaching-layout>

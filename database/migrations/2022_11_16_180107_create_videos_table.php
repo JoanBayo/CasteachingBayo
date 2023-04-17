@@ -17,7 +17,7 @@ return new  class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->string('url');
+            $table->string('url')->nullable();
             $table->dateTime('published_at')->nullable();
             $table->string('previous')->nullable();
             $table->string('next')->nullable();

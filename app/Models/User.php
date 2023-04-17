@@ -75,23 +75,24 @@ class User extends Authenticatable
         return boolval($this->superadmin);
     }
 
-    public function videos()
-    {
-        return $this->hasMany(Video::class);
-    }
-
-    public function addVideo(Video $video)
-    {
-        $video->user_id = $this->id;
-        $video->save();
-        return $this;
-    }
+//    public function videos()
+//    {
+//        return $this->hasMany(Video::class);
+//    }
+//
+//    public function addVideo(Video $video)
+//    {
+//        $video->user_id = $this->id;
+//        $video->save();
+//        return $this;
+//    }
 
     public static function createUserFromGithub($githubUser)
     {
         $user = User::where('github_id', $githubUser->id)->first();
 
         if ($user) {
+            $user->name = $githubUser->name;
             $user->github_token = $githubUser->token;
             $user->github_refresh_token = $githubUser->refreshToken;
             $user->github_nickname = $githubUser->nickname;
@@ -101,6 +102,7 @@ class User extends Authenticatable
             $user = User::where('email', $githubUser->email)->first();
             if ($user) {
                 $user->github_id = $githubUser->id;
+                $user->name = $githubUser->name;
                 $user->github_nickname = $githubUser->nickname;
                 $user->github_avatar = $githubUser->avatar;
                 $user->github_token = $githubUser->token;
