@@ -5,17 +5,16 @@ namespace App\Listeners;
 use App\Events\VideoCreated;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Queue\InteractsWithQueue;
 
-class SendVideoCreatedNotification implements ShouldQueue
+class SendVideocreatedNotification implements  ShouldQueue
 {
-    public static function testedBy()
-    {
-        return SendVideoCreatedNotification::class;
-    }
+
+
     /**
      * Handle the event.
      *
-     * @param  VideoCreated  $event
+     * @param  object  $event
      * @return void
      */
     public function handle(VideoCreated $event)

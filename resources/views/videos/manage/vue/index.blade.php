@@ -7,10 +7,10 @@
         </x-slot>
 
         <div id="vueapp">
-            <status></status>
 
             <div id="app">
-                @can('videos_manage_create')
+                <status></status>
+            @can('videos_manage_create')
                     <video-form></video-form>
                 @endcan
 
