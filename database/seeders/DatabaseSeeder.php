@@ -37,5 +37,7 @@ class DatabaseSeeder extends Seeder
         create_sample_series();
 
         create_acacha_user();
+
+        create_placeholder_series_image();
     }
 }

@@ -2,6 +2,8 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Http\File;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Tests\Unit\SerieTest;
@@ -9,7 +11,7 @@ use Tests\Unit\SerieTest;
 class Serie extends Model
 {
     use HasFactory;
-    
+
     public static function testedBy()
     {
         return SerieTest::class;
@@ -38,5 +40,16 @@ class Serie extends Model
     public function getCreatedAtTimestampAttribute()
     {
         return optional($this->created_at)->timestamp;
+    }
+
+    /**
+     * Get the user's first name.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function imageUrl(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => $this->image ?? 'series/placeholder.png',);
     }
 }
