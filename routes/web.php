@@ -9,6 +9,7 @@ use App\Http\Controllers\VideosManageVueController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Kanuu\Laravel\Facades\Kanuu;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
@@ -98,6 +99,10 @@ Route::get('/github_sponsors', function () {
 Route::get('/auth/redirect', function () {
     return Socialite::driver('github')->redirect();
 });
+
+Kanuu::redirectRoute()
+    ->middleware('auth')
+    ->name('kanuu.redirect');
 
 Route::get('/auth/callback', function () {
     try {
