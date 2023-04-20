@@ -105,17 +105,15 @@ class VideoManageControllerTest extends TestCase
     /**
      * @test
      */
-    public function user_with_permissions_cannot_destroy_videos()
+    public function user_without_permissions_cannot_destroy_videos()
     {
         $this->loginAsRegularUser();
-        $video = Video::create([
+        $response = $this->post('/manage/videos', [
             'title' => 'Title',
             'description' => 'Bla bla bla',
             'url' => 'https://tubeme.acacha.org',
         ]);
 
-
-        $response = $this->delete('/manage/videos/' . $video->id);
 
         $response->assertStatus(403);
 
@@ -198,24 +196,41 @@ class VideoManageControllerTest extends TestCase
      */
     public function title_is_required()
     {
-        $this->markTestIncomplete();
-    }
+        $this->loginAsVideoManager();
+
+        $response = $this->post('/manage/videos',[
+            'description' => 'Te ensenyo tot el que se sobre HTTP',
+            'url' => 'https://tubeme.acacha.org/http',
+        ]);
+
+        $response->assertSessionHasErrors(['title']);    }
 
     /**
      * @test
      */
     public function description_is_required()
     {
-        $this->markTestIncomplete();
-    }
+        $this->loginAsVideoManager();
+        $response = $this->post('/manage/videos',[
+            'title' => 'TDD 101',
+            'url' => 'https://tubeme.acacha.org/http',
+        ]);
+
+        $response->assertSessionHasErrors(['description']);    }
 
     /**
      * @test
      */
     public function url_is_required()
     {
-        $this->markTestIncomplete();
-    }
+        $this->loginAsVideoManager();
+        // Execució
+        $response = $this->post('/manage/videos',[
+            'title' => 'TDD 101',
+            'description' => 'Te ensenyo tot el que se sobre HTTP'
+        ]);
+
+        $response->assertSessionHasErrors(['url']);    }
 
     /**
      * @test

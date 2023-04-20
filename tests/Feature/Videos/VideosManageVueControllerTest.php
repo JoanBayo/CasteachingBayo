@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Event;
 /**
  * @covers \App\Http\Controllers\VideosManageController
  */
-class VideosManageControllerTest extends TestCase
+class VideosManageVueControllerTest extends TestCase
 {
     use RefreshDatabase, CanLogin;
 
@@ -90,7 +90,7 @@ class VideosManageControllerTest extends TestCase
         $response = $this->delete('/manage/videos/' . $video->id);
 
         $response->assertRedirect(route('manage.videos'));
-        $response->assertSessionHas('status', 'Successfully removed');
+        $response->assertSessionHas('status', 'Successfully deleted');
 
         $this->assertNull(Video::find($video->id));
         $this->assertNull($video->fresh());

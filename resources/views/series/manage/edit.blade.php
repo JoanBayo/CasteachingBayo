@@ -12,7 +12,8 @@
 
             @can('series_manage_create')
                 <x-status></x-status>
-                <x-jet-form-section data-qa="form_series_edit">
+
+                <x-jet-form-section data-qa="form_serie_edit">
                     <x-slot name="title">
                         {{ __('Series') }}
                     </x-slot>
@@ -31,22 +32,26 @@
                         @csrf
                         @method('PUT')
                         <div class="col-span-6 sm:col-span-4">
-                            <x-jet-label for="title" value="{{ __('Title') }}" />
-                            <x-jet-input id="title" name="title" type="text" class="mt-1 block w-full" autocomplete="name" required value="{{ $serie->title }}"/>
-                            <x-jet-input-error for="title" class="mt-2" />
+                            <x-jet-label for="title" value="{{ __('Title') }}"/>
+                            <x-jet-input id="title" name="title" type="text" class="mt-1 block w-full"
+                                         autocomplete="name" required value="{{ $serie->title }}"/>
+                            <x-jet-input-error for="title" class="mt-2"/>
                         </div>
 
                         <div class="col-span-6 sm:col-span-4">
-                            <x-jet-label for="description" value="{{ __('Description') }}" />
-                            <textarea required id="description" name="description" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Description">{{ $serie->description }}</textarea>
-                            <x-jet-input-error for="description" class="mt-2" />
+                            <x-jet-label for="description" value="{{ __('Description') }}"/>
+                            <textarea required id="description" name="description" rows="3"
+                                      class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
+                                      placeholder="Description">{{ $serie->description }}</textarea>
+                            <x-jet-input-error for="description" class="mt-2"/>
                         </div>
                     </x-slot>
                 </x-jet-form-section>
 
-                <x-jet-section-border />
+                <x-jet-section-border/>
 
-                <x-jet-form-section data-qa="form_serie_image_edit" action="/manage/series/{{ $serie->id }}/image" enctype="multipart/form-data">                    <x-slot name="title">
+                <x-jet-form-section data-qa="form_serie_image_edit" action="/manage/series/{{$serie->id}}/image" enctype="multipart/form-data">
+                    <x-slot name="title">
                         {{ __('Imatge de la sèrie') }}
                     </x-slot>
 
@@ -110,7 +115,6 @@
                     </x-slot>
                 </x-jet-form-section>
             @endcan
-
 
 
         </div>

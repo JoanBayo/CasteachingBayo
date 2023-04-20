@@ -24,7 +24,7 @@ class VideoTest extends TestCase
             'published_at' => Carbon::parse('November 22, 2022 11:00am'),
             'previous' => null,
             'next' => null,
-            'series_id' => 1
+            'serie_id' => 1
         ]);
 
         $dateToTest = $video->formatted_published_at;
@@ -44,7 +44,7 @@ class VideoTest extends TestCase
             'published_at' => null,
             'previous' => null,
             'next' => null,
-            'series_id' => 1
+            'serie_id' => 1
         ]);
 
         $dateToTest = $video->formatted_published_at;

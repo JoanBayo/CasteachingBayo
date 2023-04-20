@@ -13,7 +13,6 @@ class Video extends Model
 
     protected $guarded = [];
 
-    protected $fillable = ['title','description'];
     protected  $dates = ['published_at'];
 
     //formatted_published_at accesor

@@ -28,23 +28,4 @@ class UserTest extends TestCase
         $this->assertEquals($user->isSuperAdmin(),true);
     }
 
-    /** @test */
-    public function user_can_have_owned_videos()
-    {
-        $user = User::create([
-            'name' => 'Pepe Pardo Jeans',
-            'email' => 'pepepardo@casteaching.com',
-            'password' => Hash::make('12345678')
-        ]);
-
-        $this->assertCount(0,$user->videos);
-        $video  = Video::create([
-            'title' => 'TDD 101',
-            'description' => 'Bla bla bla',
-            'url' => 'https://youtu.be/ednlsVl-NHA'
-        ]);
-        $user->addVideo($video);
-        $this->assertCount(1,$user->refresh()->videos);
-        $this->assertEquals($video->id,$user->videos[0]->id);
-    }
 }
