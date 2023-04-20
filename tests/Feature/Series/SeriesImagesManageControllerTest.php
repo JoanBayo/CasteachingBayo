@@ -2,9 +2,11 @@
 
 namespace Tests\Feature\Series;
 
+use App\Events\SeriesImageUpdated;
 use App\Models\Serie;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Tests\Feature\Traits\CanLogin;
 use Tests\TestCase;
@@ -12,38 +14,44 @@ use Tests\TestCase;
 /**
  * @covers SeriesImagesManageController::class
  */
+
 class SeriesImagesManageControllerTest extends TestCase
 {
     use RefreshDatabase, CanLogin;
 
     /** @test */
-    public function series_managers_can_update_image_series()
+    public function series_managers_can_update_image_serie()
     {
         $this->loginAsSeriesManager();
 
         $serie = Serie::create([
             'title' => 'TDD 101',
             'description' => 'Aprèn tot sobre TDD',
-            'image' => 'anterior.png',
+            'image' => 'serieTDD.png',
             'teacher_name' => 'Sergi Tur'
         ]);
 
         Storage::fake('public');
+        Event::fake();
 
-        // URI ENDPOINT -> API -> FUNCTION
-        $response = $this->put('/manage/series/' . $serie->id . '/image/',[
-            'image' => $file = UploadedFile::fake()->image('serie.jpg',960,540),
+        $response = $this->put('/manage/series/'.$serie->id.'/image',[
+            'image' => $file = UploadedFile::fake()->image('serie.jpg',960,540)
         ]);
+
+        Event::assertDispatched(SeriesImageUpdated::class,function ($event) use ($serie){
+            return !is_null($event->serie->image)&& $serie->is($event->serie);
+        });
 
         $response->assertRedirect();
 
+        Storage::disk('public')->assertExists('/series/'.$file->hashName());
         $response->assertSessionHas('status', __('Successfully updated'));
-
-        Storage::disk('public')->assertExists('/series/'. $file->hashName());
 
         $this->assertEquals($serie->refresh()->image,'series/'.$file->hashName());
         $this->assertNotNull($serie->image);
-        $this->assertFileEquals($file->getPathname(),Storage::disk('public')->path($serie->image));
+
+
+        $this->assertFileEquals($file->getPathname(), Storage::disk('public')->path($serie->image));
 
     }
 
@@ -71,8 +79,6 @@ class SeriesImagesManageControllerTest extends TestCase
         $response->assertSessionHasErrors('image');
 
         $this->assertEquals('series/anterior.png',$serie->refresh()->image);
-
-
     }
 
     /** @test */
@@ -118,9 +124,7 @@ class SeriesImagesManageControllerTest extends TestCase
 
         $response->assertRedirect();
 
-        $response->assertSessionHasErrors('image',function($error){
-            dd($error);
-        });
+        $response->assertSessionHasErrors('image');
 
         $this->assertEquals('series/anterior.png',$serie->refresh()->image);
     }
