@@ -47,6 +47,12 @@ class Serie extends Model
      *
      * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
+    protected function imageUrl(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => $this->image ?? 'series/placeholder.png',);
+    }
+
     protected function url(): Attribute
     {
         return new Attribute(

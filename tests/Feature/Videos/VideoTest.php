@@ -76,7 +76,6 @@ class VideoTest extends TestCase
         $response->assertSee('13 de desembre de 2020');
         $response->assertSee('https://youtu.be/w8j07_DBl_I');
 
-        // NO ES MOSTRA LA NAVEGACIÓ DE SERIES
         $response->assertDontSee('<div id="layout_series_navigation"',false);
     }
 
