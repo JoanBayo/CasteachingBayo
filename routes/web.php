@@ -32,6 +32,10 @@ Route::get('/', [\App\Http\Controllers\LandingPageController::class, 'show']);
 Route::get('/videos/{id}', [ VideosController::class, 'show']);
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function(){
+    Route::get('/subscribe', function () {
+        return redirect(route('kanuu.redirect', Auth::user()));
+    })->name('subscribe');
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
@@ -93,16 +97,11 @@ Route::get('/github_sponsors', function () {
     foreach ($sponsors as $sponsor) {
         dump($sponsor);
     }
-
 });
 
 Route::get('/auth/redirect', function () {
     return Socialite::driver('github')->redirect();
 });
-
-Kanuu::redirectRoute()
-    ->middleware('auth')
-    ->name('kanuu.redirect');
 
 Route::get('/auth/callback', function () {
     try {
@@ -112,7 +111,6 @@ Route::get('/auth/callback', function () {
         return redirect('/login')->withErrors(['msg' => 'An Error occurred!' . $error->getMessage()]);
     }
 
-//    $user = User::createUserFormGithub($githubUser);
     $user = User::where('github_id', $githubUser->id)->first();
 
     if ($user) {
@@ -146,3 +144,8 @@ Route::get('/auth/callback', function () {
 
     return redirect('/dashboard');
 });
+
+
+Kanuu::redirectRoute()
+    ->middleware('auth')
+    ->name('kanuu.redirect');

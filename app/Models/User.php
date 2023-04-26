@@ -6,12 +6,12 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Kanuu\Laravel\Billable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Jetstream\HasTeams;
-use Laravel\Paddle\Billable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Tests\Unit\UserTest;
@@ -94,7 +94,7 @@ class User extends Authenticatable
         $user = User::where('github_id', $githubUser->id)->first();
 
         if ($user) {
-            $user->name = $githubUser->name;
+            $user->name = $githubUser->name ?? 'Github User';
             $user->github_token = $githubUser->token;
             $user->github_refresh_token = $githubUser->refreshToken;
             $user->github_nickname = $githubUser->nickname;
@@ -112,7 +112,7 @@ class User extends Authenticatable
                 $user->save();
             } else {
                 $user = User::create([
-                    'name' => $githubUser->name,
+                    'name' => $githubUser->name ?? 'Github User',
                     'email' => $githubUser->email,
                     'password' => Hash::make(Str::random()),
                     'github_id' => $githubUser->id,
@@ -120,6 +120,7 @@ class User extends Authenticatable
                     'github_token' => $githubUser->token,
                     'github_refresh_token' => $githubUser->refreshToken,
                 ]);
+                add_personal_team($user);
             }
         }
 

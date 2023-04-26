@@ -19,6 +19,66 @@ class VideoTest extends TestCase
     /**
      * @test
      */
+    public function can_check_if_video_can_be_displayed()
+    {
+        $video = Video::create([
+            'title' => 'Ubuntu 101',
+            'description' => '# Here description',
+            'url' => 'https://youtu.be/w8j07_DBl_I',
+            'published_at' => Carbon::parse('December 13, 2020 8:00pm')
+        ]);
+
+        $this->assertTrue($video->canBeDisplayed());
+
+        $video->markAsOnlyForSubscribers();
+        $video->refresh();
+
+        $this->assertFalse($video->canBeDisplayed());
+    }
+
+    /**
+     * @test
+     */
+    public function a_video_can_need_a_subscription()
+    {
+        $video = Video::create([
+            'title' => 'Ubuntu 101',
+            'description' => '# Here description',
+            'url' => 'https://youtu.be/w8j07_DBl_I',
+            'published_at' => Carbon::parse('December 13, 2020 8:00pm')
+        ]);
+
+        $this->assertNull($video->needs_subscription);
+
+        $video->markAsOnlyForSubscribers();
+        $video->refresh();
+
+        $this->assertNotNull($video->needs_subscription);
+    }
+
+    /**
+     * @test
+     */
+    public function can_check_if_a_video_need_subscriber()
+    {
+        $video = Video::create([
+            'title' => 'Ubuntu 101',
+            'description' => '# Here description',
+            'url' => 'https://youtu.be/w8j07_DBl_I',
+            'published_at' => Carbon::parse('December 13, 2020 8:00pm'),
+        ]);
+
+        $this->assertFalse($video->only_for_subscribers);
+
+        $video->markAsOnlyForSubscribers();
+        $video->refresh();
+
+        $this->assertTrue($video->only_for_subscribers);
+    }
+
+    /**
+     * @test
+     */
     public function users_can_view_video_series_navigation()
     {
         $serie = Serie::create([
@@ -38,7 +98,7 @@ class VideoTest extends TestCase
             'serie_id' => $serie->id
         ]);
 
-        $response = $this->get('/videos/' . $video->id); // SLUGS -> SEO -> TODO
+        $response = $this->get('/videos/' . $video->id);
 
         $response->assertStatus(200);
         $response->assertSee('Ubuntu 101');
@@ -46,7 +106,6 @@ class VideoTest extends TestCase
         $response->assertSee('13 de desembre de 2020');
         $response->assertSee('https://youtu.be/w8j07_DBl_I');
 
-        // NO ES MOSTRA LA NAVEGACIÓ DE SERIES
         $response->assertSee('<div id="layout_series_navigation"',false);
         $response->assertSee($serie->title);
         $response->assertSee($serie->teacher_name);
@@ -85,8 +144,7 @@ class VideoTest extends TestCase
     public function users_can_view_videos()
     {
         $this->withoutExceptionHandling();
-        //PREPARE
-        //Wishful programming
+
         $video = Video::create([
             'title' => 'Title here',
             'description' => 'Description here',
@@ -97,13 +155,10 @@ class VideoTest extends TestCase
             'serie_id' => 1
         ]);
 
-        //EXECUTION
-        // Http test
         $response = $this->get('/videos/' . $video->id);
 
-
-        //ASSERTIONS
         $response->assertStatus(200);
+
         $response->assertSee('Title here');
         $response->assertSee('Description here');
         $response->assertSee('13 de desembre de 2020');
@@ -117,6 +172,5 @@ class VideoTest extends TestCase
     {
         $response = $this->get('/videos/999');
         $response->assertStatus(404);
-
     }
 }

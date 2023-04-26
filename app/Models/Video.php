@@ -5,6 +5,8 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Auth;
 
 
 class Video extends Model
@@ -14,6 +16,28 @@ class Video extends Model
     protected $guarded = [];
 
     protected  $dates = ['published_at'];
+
+    protected function onlyForSubscribers(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => (boolean) !is_null($this->needs_subscription)
+        );
+    }
+
+    public function canBeDisplayed()
+    {
+        if ($this->only_for_subscribers) {
+            if(!Auth::check()) return false;
+        }
+        return true;
+    }
+
+    public function markAsOnlyForSubscribers()
+    {
+        $this->needs_subscription = Carbon::now();
+        $this->save();
+        return $this;
+    }
 
     //formatted_published_at accesor
     public function getFormattedPublishedAtAttribute()
@@ -45,13 +69,6 @@ class Video extends Model
         $this->save();
         return $this;
     }
-
-//    public function setOwner(User $user)
-//    {
-//        $this->user_id = $user->id;
-//        $this->save();
-//        return $this;
-//    }
 
     public function user()
     {
