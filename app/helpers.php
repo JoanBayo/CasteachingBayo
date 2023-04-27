@@ -241,6 +241,7 @@ if (! function_exists('create_sample_videos')) {
             'url' => 'https://youtu.be/G4bf5qpkql0',
             'published_at' => Carbon::parse('December 13, 2020 8:00pm')
         ]);
+
         $video3 = Video::create([
             'title' => 'Video3',
             'description' => 'Bla Bla Bla',
@@ -370,6 +371,15 @@ if (! function_exists('create_sample_series')) {
             'description' => 'Bla bla bla',
         ]);
 
-        return [$serie1,$serie2,$serie3,$serie4];
+        $path=Storage::disk('public')->putFile('series',new File(base_path("series_photos/tdd.png")));
+        $serie5 = Serie::create([
+            'title' => 'prova del TDD',
+            'description' => 'prova del TDD',
+            'image' =>  $path,
+            'teacher_name' => 'Sergi Tur Badenas',
+            'teacher_photo_url' => 'https://www.gravatar.com/avatar/' . md5('sergiturbadenas@gmail.com')
+        ]);
+
+        return [$serie1,$serie2,$serie3,$serie4,$serie5];
         }
 }

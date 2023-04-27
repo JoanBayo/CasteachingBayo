@@ -86,7 +86,7 @@
                         </button>
                     </div>
                 </div>
-                <nav class="px-3 mt-6 overflow-y-auto">
+                <nav class="px-3 mt-6 overflow-y-auto" style="height: calc(100vh - 244px);">
                     <div class="space-y-1">
                         @foreach ($videos_series as $sVideo)
                             @if ($sVideo->is($video))

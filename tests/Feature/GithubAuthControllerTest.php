@@ -43,16 +43,14 @@ class GithubAuthControllerTest extends TestCase
 
         $user = User::where(['email' => GithubDriverMock::EMAIL])->first();
 
+
         $this->assertNotNull($user);
         $this->assertEquals($user->name,GithubDriverMock::NAME);
         $this->assertEquals($user->email,GithubDriverMock::EMAIL);
-//        $this->assertTrue($user->email_verified_at);
         $this->assertNotNull($user->password);
-//        $this->assertNotNull($user->profile_photo_path);
         $this->assertNull($user->superadmin);
         $this->assertEquals($user->github_id,GithubDriverMock::ID);
         $this->assertEquals($user->github_nickname,GithubDriverMock::NICKNAME);
-//        $this->assertEquals($user->github_avatar,GithubDriverMock::AVATAR);
         $this->assertEquals($user->github_token,GithubDriverMock::TOKEN);
         $this->assertNull($user->github_refresh_token);
 
@@ -65,7 +63,7 @@ class GithubAuthControllerTest extends TestCase
     {
         $sergi = User::create([
             'name' => 'Pepe',
-            'email' => 'dsaasd@dassd.es',
+            'email' => 'asdf@dasasdfsd.es',
             'password' => Hash::make('12345678'),
             'github_id' => GithubDriverMock::ID
         ]);
@@ -81,8 +79,6 @@ class GithubAuthControllerTest extends TestCase
 
         $response->assertRedirect('dashboard');
         $this->assertAuthenticated();
-
-        // TODO
 
     }
 
@@ -107,8 +103,6 @@ class GithubAuthControllerTest extends TestCase
 
         $response->assertRedirect('dashboard');
         $this->assertAuthenticated();
-
-        // TODO
 
     }
 

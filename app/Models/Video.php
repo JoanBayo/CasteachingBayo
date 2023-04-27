@@ -39,7 +39,6 @@ class Video extends Model
         return $this;
     }
 
-    //formatted_published_at accesor
     public function getFormattedPublishedAtAttribute()
     {
         if(!$this->published_at) return '';

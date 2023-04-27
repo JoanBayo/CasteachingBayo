@@ -17,7 +17,7 @@ class SeriesImagesManageController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'image' => ['image', 'dimensions:min_height=400,ratio=16/9']
+            'image' => ['image', 'dimensions:min_height=400,ratio=16/9 ax:2000']
         ]);
 
         $serie = Serie::findOrFail($request->id);

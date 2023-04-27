@@ -2,8 +2,8 @@
     <div class="mt-8 flex flex-col">
         <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                <div>
-                    <div class="md:grid md:grid-cols-3 md:gap-6">
+                <div class="p-4">
+                    <div class="md:grid md:grid-cols-3 md:gap-6 bg-white md:bg-transparent">
                         <div class="md:col-span-1">
                             <div class="px-4 sm:px-0">
                                 <h3 class="text-lg font-medium leading-6 text-gray-900">Vídeos</h3>
@@ -78,19 +78,19 @@ export default {
         }
     },
     methods:{
-        save() {
+        async save() {
             if (this.status === 'creating') {
-                this.store()
+                await this.store()
             }
             if (this.status === 'editing') {
-                this.update()
+                await this.update()
             }
 
         },
 
-        store(){
+        async store(){
             try {
-                window.api.video.create({
+                await window.api.video.create({
                     title: this.video.title,
                     description: this.video.description,
                     url:  this.video.url
@@ -102,9 +102,9 @@ export default {
             }
         },
 
-        update(){
+        async update(){
             try {
-                window.api.video.update(this.video.id, {
+                await window.api.video.update(this.video.id, {
                     title: this.video.title,
                     description: this.video.description,
                     url:  this.video.url

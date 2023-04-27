@@ -6,6 +6,7 @@ use App\Models\Video;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 
 class VideoCreated extends Notification
@@ -14,9 +15,7 @@ class VideoCreated extends Notification
 
     private $video;
 
-    /**
-     * @param $video
-     */
+
     public function __construct(Video $video)
     {
         $this->video = $video;
@@ -43,9 +42,17 @@ class VideoCreated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line("S'ha creat un video nou: " . $this->video->title)
+                    ->line("S'ha creat un nou video: " . $this->video->title.".")
                     ->action('Veure el vídeo', url($this->video->url))
-                    ->line('Gràcies per confiar en la nostra aplicació');
+                    ->line('Gràcies!!');
+    }
+
+    public function toBroadcast($notifiable)
+    {
+        return new BroadcastMessage([
+            'title' => $this->video->title,
+            'description' => $this->video->description,
+        ]);
     }
 
     /**
