@@ -1,5 +1,4 @@
 <x-casteaching-layout>
-<<<<<<< HEAD
     <div class="px-4 sm:px-6 lg:px-8 mt-10">
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -35,9 +34,6 @@
                                                     Introduce a good title for your video
                                                 </p>
                                             </div>
-=======
->>>>>>> main
-
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Videos') }}
