@@ -4,12 +4,18 @@ namespace App\Events;
 
 use App\Models\Video;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Broadcasting\Channel;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Tests\Feature\Notifications\VideoCreatedTest;
 
-class VideoCreated
+class VideoCreated implements ShouldBroadcast
 {
+    public static function testedBy()
+    {
+        return VideoCreatedTest::class;
+    }
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public Video $video;
@@ -23,10 +29,10 @@ class VideoCreated
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return \Illuminate\Broadcasting\Channel|array
+     * @return Channel
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return new Channel('notifications', $this->video);
     }
 }

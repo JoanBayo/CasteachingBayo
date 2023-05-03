@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SeriesApiController;
 use App\Http\Controllers\VideosApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,7 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+<<<<<<< HEAD
 usleep(200);
+=======
+usleep(1000);
+>>>>>>> main
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -33,3 +38,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 Route::post('/sanctum/token',\App\Http\Controllers\SanctumTokenController::class);
 
+<<<<<<< HEAD
+=======
+Route::get('/series', [ SeriesApiController::class,'index']);
+Route::get('/series/{id}', [ SeriesApiController::class,'show']);
+>>>>>>> main

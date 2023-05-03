@@ -27,4 +27,5 @@ class UserTest extends TestCase
         $user->save();
         $this->assertEquals($user->isSuperAdmin(),true);
     }
+
 }

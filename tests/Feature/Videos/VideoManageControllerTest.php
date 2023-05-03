@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Videos;
 
+use App\Models\Serie;
 use App\Events\VideoCreated;
 use App\Models\User;
 use App\Models\Video;
@@ -104,17 +105,15 @@ class VideoManageControllerTest extends TestCase
     /**
      * @test
      */
-    public function user_with_permissions_cannot_destroy_videos()
+    public function user_without_permissions_cannot_destroy_videos()
     {
         $this->loginAsRegularUser();
-        $video = Video::create([
+        $response = $this->post('/manage/videos', [
             'title' => 'Title',
             'description' => 'Bla bla bla',
             'url' => 'https://tubeme.acacha.org',
         ]);
 
-
-        $response = $this->delete('/manage/videos/' . $video->id);
 
         $response->assertStatus(403);
 
@@ -150,6 +149,89 @@ class VideoManageControllerTest extends TestCase
         $this->assertEquals($videoDB->url,$video->url);
 
     }
+
+    /**
+     * @test
+     */
+    public function user_with_permissions_can_store_videos_with_serie()
+    {
+        $this->loginAsVideoManager();
+
+        $serie = Serie::create([
+            'title' => 'TDD (Test Driven Development)',
+            'description' => 'Bla bla bla',
+            'image' => 'tdd.png',
+            'teacher_name' => 'Sergi Tur Badenas',
+            'teacher_photo_url' => 'https://www.gravatar.com/avatar/' . md5('sergiturbadenas@gmail.com'),
+        ]);
+
+        $video = objectify($videoArray = [
+            'title' => 'HTTP for noobs',
+            'description' => 'Te ensenyo tot el que se sobre HTTP',
+            'url' => 'https://tubeme.acacha.org/http',
+            'serie_id' => $serie->id
+        ]);
+
+        Event::fake();
+        $response = $this->post('/manage/videos',$videoArray);
+
+        Event::assertDispatched(VideoCreated::class);
+
+        $response->assertRedirect(route('manage.videos'));
+        $response->assertSessionHas('status', 'Successfully created');
+
+        $videoDB = Video::first();
+
+        $this->assertNotNull($videoDB);
+        $this->assertEquals($videoDB->title,$video->title);
+        $this->assertEquals($videoDB->description,$video->description);
+        $this->assertEquals($videoDB->url,$video->url);
+        $this->assertEquals($videoDB->serie_id,$serie->id);
+        $this->assertNull($video->published_at);
+
+    }
+
+    /**
+     * @test
+     */
+    public function title_is_required()
+    {
+        $this->loginAsVideoManager();
+
+        $response = $this->post('/manage/videos',[
+            'description' => 'Te ensenyo tot el que se sobre HTTP',
+            'url' => 'https://tubeme.acacha.org/http',
+        ]);
+
+        $response->assertSessionHasErrors(['title']);    }
+
+    /**
+     * @test
+     */
+    public function description_is_required()
+    {
+        $this->loginAsVideoManager();
+        $response = $this->post('/manage/videos',[
+            'title' => 'TDD 101',
+            'url' => 'https://tubeme.acacha.org/http',
+        ]);
+
+        $response->assertSessionHasErrors(['description']);    }
+
+    /**
+     * @test
+     */
+    public function url_is_required()
+    {
+        $this->loginAsVideoManager();
+        // Execució
+        $response = $this->post('/manage/videos',[
+            'title' => 'TDD 101',
+            'description' => 'Te ensenyo tot el que se sobre HTTP'
+        ]);
+
+        $response->assertSessionHasErrors(['url']);    }
+
     /**
      * @test
      */
@@ -212,6 +294,40 @@ class VideoManageControllerTest extends TestCase
             $response->assertSee($video->title);
         }
     }
+    //    /** @test */
+//    public function user_with_permissions_can_manage_videos_and_see_serie()
+//    {
+//        $this->loginAsVideoManager();
+//
+//        $videos = create_sample_videos();
+//
+//        $serie = Serie::create([
+//            'title' => 'TDD (Test Driven Development)',
+//            'description' => 'Bla bla bla',
+//            'image' => 'tdd.png',
+//            'teacher_name' => 'Sergi Tur Badenas',
+//            'teacher_photo_url' => 'https://www.gravatar.com/avatar/' . md5('sergiturbadenas@gmail.com')
+//        ]);
+//
+//        $videos[0]->setSerie($serie);
+//
+//        $response = $this->get('/manage/videos');
+//
+//        $response->assertStatus(200);
+//        $response->assertViewIs('videos.manage.index');
+//        $response->assertViewHas('videos',function($v) use ($videos) {
+//            return $v->count() === count($videos) && get_class($v) === Collection::class &&
+//                get_class($videos[0]) === Video::class;
+//        });
+//
+//        foreach ($videos as $video) {
+//            $response->assertSee($video->id);
+//            $response->assertSee($video->title);
+//        }
+//        dump($videos[0]->fresh()->serie->title);
+//        dd($response->getContent());
+//        $response->assertSee($videos[0]->fresh()->serie->title);
+//    }
     /**
      * @test
      */

@@ -42,8 +42,8 @@ class SanctumTokenControllerTest extends TestCase
 
         $response->assertStatus(422);
         $jsonResponse = json_decode($response->getContent());
-        $this->assertEquals("The provided credentials are incorrect.",$jsonResponse->message);
-        $this->assertEquals("The provided credentials are incorrect.",$jsonResponse->errors->email[0]);
+        $this->assertEquals("The email must be a valid email address.",$jsonResponse->message);
+        $this->assertEquals("The email must be a valid email address.",$jsonResponse->errors->email[0]);
     }
 
     /** @test */

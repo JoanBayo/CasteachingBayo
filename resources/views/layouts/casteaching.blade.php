@@ -13,10 +13,22 @@
 
         @livewireStyles
 
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-2Z380SERWJ"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-2Z380SERWJ');
+        </script>
+
+        @paddleJS
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased h-full">
         <x-jet-banner />
         <div class="min-h-screen bg-gray-100">
             @livewire('navigation-menu')
@@ -33,8 +45,17 @@
             <!-- Page Content -->
             <main>
                 {{ $slot }}
+                <div id="vueapp">
+                    <notification></notification>
+                </div>
             </main>
 
         </div>
     </body>
 </html>
+<script>
+    import Notification from "../../js/components/notification";
+    export default {
+        components: {Notification}
+    }
+</script>
