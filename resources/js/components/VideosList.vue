@@ -72,16 +72,6 @@ export default {
         }
     },
     async created() {
-<<<<<<< HEAD
-        this.getVideos()
-        bus.$on('created', async () => {
-            await this.refresh()
-        })
-        this.getVideos()
-        bus.$on('updated', async () => {
-            await this.refresh()
-        })
-=======
         await this.getVideos()
         bus.$on('created', async () => {
             await this.refresh()
@@ -90,7 +80,6 @@ export default {
         bus.$on('updated', async () => {
             await this.refresh()
         });
->>>>>>> main
     },
     methods: {
         async getVideos(){

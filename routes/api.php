@@ -16,9 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
-usleep(200);
+usleep(1000);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -39,4 +37,3 @@ Route::post('/sanctum/token',\App\Http\Controllers\SanctumTokenController::class
 Route::get('/series', [ SeriesApiController::class,'index']);
 
 Route::get('/series/{id}', [ SeriesApiController::class,'show']);
-
