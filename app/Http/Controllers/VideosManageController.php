@@ -33,11 +33,10 @@ class VideosManageController extends Controller
             'user_id' => $request->user_id
         ]);
 
-<<<<<<< HEAD
+
         session()->flash('status','Successfully created');
-=======
+
         session()->flash('status', 'Successfully created');
->>>>>>> main
 
         VideoCreated::dispatch($video);
 

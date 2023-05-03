@@ -19,14 +19,14 @@ class SendVideoCreatedNotification implements  ShouldQueue
      */
     public function handle(VideoCreated $event)
     {
-<<<<<<< HEAD
+
         Notification::route('mail', config('casteaching.admins'))->notify(new \App\Notifications\VideoCreated($event->video));
 
-=======
+
         Notification::route('mail', config('casteaching.admins'))
             ->route('broadcast', config('casteaching.admins'))
             ->notify(new \App\Notifications\VideoCreated($event->video));
->>>>>>> main
+
     }
 }
 
