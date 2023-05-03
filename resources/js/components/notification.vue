@@ -13,7 +13,6 @@
                             <div class="ml-3 w-0 flex-1 pt-0.5">
                                 <p class="text-sm font-medium text-gray-900">Nova publicació del video  {{title}}</p>
                                 <p class="mt-1 text-sm text-gray-500">{{description }}</p>
-                                <p class="mt-1 text-sm text-indigo-500 pt-4">Click per veure'l</p>
                             </div>
                             <div class="ml-4 flex-shrink-0 flex">
                                 <button @click="show=false" type="button" class="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">

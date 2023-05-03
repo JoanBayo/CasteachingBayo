@@ -89,8 +89,8 @@ Route::get('/github_sponsors', function () {
     $client = app(Client::class);
     dump($sponsors = $client->login('acacha')->sponsors());
     foreach ($sponsors as $sponsor) {
-        dump($sponsor['avatarUrl']); // The sponsor's GitHub avatar url...
-        dump($sponsor['name']); // The sponsor's GitHub name...
+        dump($sponsor['avatarUrl']);
+        dump($sponsor['name']);
     }
 
     dump($sponsors = $client->login('driesvints')->sponsors());
