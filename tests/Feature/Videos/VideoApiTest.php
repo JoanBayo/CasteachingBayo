@@ -93,7 +93,6 @@ class VideoApiTest extends TestCase
             'description' => 'Te ensenyo tot el que se sobre HTTP',
             'url' => 'https://tubeme.acacha.org/http',
         ]);
-        $response = $this->putJson('/api/videos/' . $video->id);
 
         $response = $this->putJson('/api/videos/' . $video->id,[
             'title' => 'Ubuntu 101 new',

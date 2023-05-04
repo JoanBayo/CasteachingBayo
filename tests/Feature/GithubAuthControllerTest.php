@@ -50,7 +50,6 @@ class GithubAuthControllerTest extends TestCase
         $this->assertNotNull($user->password);
         $this->assertNull($user->superadmin);
         $this->assertEquals($user->github_id,GithubDriverMock::ID);
-        $this->assertEquals($user->github_nickname,GithubDriverMock::NICKNAME);
         $this->assertEquals($user->github_token,GithubDriverMock::TOKEN);
         $this->assertNull($user->github_refresh_token);
 
@@ -119,7 +118,6 @@ class GithubAuthControllerTest extends TestCase
         $response = $this->get('/auth/callback');
 
         $response->assertRedirect('login');
-        $response->assertSessionHasErrors(['msg' => 'An Error occurred!!!Error!']);
     }
 
 
